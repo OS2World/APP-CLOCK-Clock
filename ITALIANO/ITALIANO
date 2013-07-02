@@ -1,0 +1,19 @@
+# Build Italian language elements of CLOCK.
+# This module is intended to be included into a more complete Make file.
+
+Italiano: $*.dll $*.hlp $*.inf
+
+Italiano.inf: $*.ipf CLOCK.H CLOCK.BMP
+  ipfcomp /INF /COU=039 /COD=850 /LAN=ITA $*.ipf
+
+Italiano.hlp: $*.ipf CLOCK.H CLOCK.BMP
+  ipfcomp /COU=039 /COD=850 /LAN=ITA $*.ipf
+
+Italiano.dll: $*.def $*.res dll.obj
+  link386 /nologo dll, $*.dll /align:16, nul,, $* ;
+  rc $*.res $*.dll
+
+Italiano.res: $*.rc CLOCK.H CLOCK.BMP CLOCK.ICO
+  rc -r $*
+
+

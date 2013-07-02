@@ -1,0 +1,19 @@
+# Build English language elements of CLOCK.
+# This module is intended to be included into a more complete Make file.
+
+English: $*.dll $*.hlp $*.inf
+
+English.inf: $*.ipf CLOCK.H CLOCK.BMP
+  ipfcomp /INF /COU=001 /COD=850 /LAN=ENU $*.ipf
+
+English.hlp: $*.ipf CLOCK.H CLOCK.BMP 
+  ipfcomp /COU=001 /COD=850 /LAN=ENU $*.ipf
+
+English.dll: $*.def $*.res dll.obj
+  link386 /nologo dll, $*.dll /align:16, nul,, $* ;
+  rc $*.res $*.dll
+
+English.res: $*.rc CLOCK.H CLOCK.BMP CLOCK.ICO
+  rc -r $*
+
+

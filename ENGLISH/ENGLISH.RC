@@ -1,0 +1,194 @@
+/***************************************************************** ENGLISH.RC
+ *                                                                          *
+ *             OS/2 PM Analog Clock resource definition file                *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "clock.h"
+
+CODEPAGE 850
+
+BITMAP ID_MAIN clock.bmp
+ICON ID_MAIN clock.ico
+
+/****************************************************************************
+ * Months: January, February, March, April, May, June,                      *
+ *   July, August, September, October, November, December.                  *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 32, 32, 200, 108, FS_DLGBORDER
+  {
+    CTEXT "Clock 2.30"                                   -1,  4, 88, 192,  8
+    CTEXT "28 July 1995"                                 -1,  4, 80, 192,  8
+    CONTROL "#1",                                        -1,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "OS/2 PM Analog/Digital Clock"                 -1,  4, 64, 192,  8
+    CTEXT "Original Copyright (C) Charles Petzold, 1988" -1,  4, 56, 192,  8
+    CTEXT "Modified by Rick Papo, 1989-1995"             -1,  4, 48, 192,  8
+    CTEXT "Internet: rpapo@msen.com"                     -1,  4, 40, 192,  8
+    CTEXT "CompuServe: 72607,3111"                       -1,  4, 32, 192,  8
+    DEFPUSHBUTTON "OK"                               DID_OK, 80,  8,  40, 16, WS_GROUP
+  }
+}
+
+
+MENU IDM_MENU
+{
+  MENUITEM "Save Defaults\tF2",         IDM_SAVE_APPLICATION
+  MENUITEM "Reset Defaults",            IDM_RESET_DEFAULTS
+  MENUITEM "Hide Controls\tAlt+H",      IDM_HIDE_CONTROLS
+  MENUITEM "Configure...\tAlt+C",       IDM_CONFIGURE
+  MENUITEM SEPARATOR
+  MENUITEM "Product Information...",    IDM_ABOUT
+  MENUITEM "Help\tF1",                  0, MIS_HELP
+  MENUITEM "Close\tF3",                 IDM_EXIT
+}
+
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "Set Profile Path...", IDD_PROFILE_PATH, 50, 100, 300, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    LTEXT "Enter the full path (including drive) of the directory",-1, 8, 48, 284, 8
+    LTEXT "where the profile (INI) file will be kept.",            -1, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "OK"        DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Esc=Cancel"      DID_CANCEL,          44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=Help"         -1,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Clock Configuration", IDD_CONFIGURE, 8, 8, 192, 140
+    FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    GROUPBOX "Clock Type",                             -1,   8, 106,  86, 30
+    AUTORADIOBUTTON "Analog",           IDD_CONFIG_ANALOG,  12, 117,  74, 10
+    AUTORADIOBUTTON "Digital",         IDD_CONFIG_DIGITAL,  12, 107,  74, 10
+
+    AUTOCHECKBOX "24-Hour Clock",       IDD_CONFIG_HOUR24,  12,  90,  74, 10
+    AUTOCHECKBOX "Hide Controls", IDD_CONFIG_HIDECONTROLS,  12,  80,  74, 10
+    AUTOCHECKBOX "Chime",                IDD_CONFIG_CHIME,  12,  70,  74, 10
+    AUTOCHECKBOX "Float to Top",         IDD_CONFIG_FLOAT,  12,  60,  74, 10
+    AUTOCHECKBOX "Animate",            IDD_CONFIG_ANIMATE,  12,  50,  74, 10
+    AUTOCHECKBOX "Display Seconds",    IDD_CONFIG_SECONDS,  12,  40,  74, 10
+
+    GROUPBOX "Alert Type",                             -1,  96, 106,  86, 30
+    AUTORADIOBUTTON "Task Count",    IDD_CONFIG_TASKCOUNT, 100, 117,  74, 10
+    AUTORADIOBUTTON "CPU Load",        IDD_CONFIG_CPULOAD, 100, 107,  74, 10
+
+    GROUPBOX "Alert Thresholds",                       -1,  96,  22,  86, 82
+    LTEXT "Task Count",                                -1, 100,  85,  70, 10
+    LTEXT "Red",                                       -1, 104,  73,  30, 10
+    CONTROL "",                   IDD_CONFIG_TASKCOUNTRED, 136,  73,  40, 10
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Yellow",                                    -1, 104,  61,  30, 10
+    CONTROL "",                IDD_CONFIG_TASKCOUNTYELLOW, 136,  61,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "CPU Load (%)",                              -1, 100,  49,  70, 10
+    LTEXT "Red",                                       -1, 104,  37,  30, 10
+    CONTROL "",                     IDD_CONFIG_CPULOADRED, 136,  37,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Yellow",                                    -1, 104,  25,  30, 10
+    CONTROL "",                  IDD_CONFIG_CPULOADYELLOW, 136,  25,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+
+    DEFPUSHBUTTON "OK",                            DID_OK,   8,   8,  32, 12, WS_GROUP | WS_TABSTOP
+    CONTROL "Cancel"                           DID_CANCEL,  42,   8,  64, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Help"                                     -1, 108,   8,  48, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "'Clock' Help Facility"
+  IDS_TITLE                            "Clock"
+
+  IDS_SAVE_APPLICATION                 "Save Defaults\tF2"
+  IDS_RESET_DEFAULTS                   "Reset Defaults"
+  IDS_HIDE_CONTROLS                    "Hide Controls\tAlt+H"
+  IDS_CONFIGURE                        "Configure...\tAlt+C"
+  IDS_ABOUT                            "Product Information..."
+  IDS_HELP                             "Help\tF1"
+
+  IDS_PARAMETERLIST                    "Valid startup parameters:\n"
+                                       "  RESET: Reset profile before starting.\n"
+                                       "  ANALOG: Start with analog clock.\n"
+                                       "  DIGITAL: Start with digital clock.\n"
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_ANALOG                     "ANALOG"
+  IDS_PARMS_DIGITAL                    "DIGITAL"
+
+  IDS_ERROR_INVALIDPARM                "ERROR: Invalid startup parameter '%s'."
+  IDS_ERROR_PRFOPENPROFILE             "ERROR: Unable to open profile file."
+  IDS_ERROR_CREATEHELP                 "ERROR: Unable to create help instance.  Code %08lX."
+  IDS_ERROR_CREATEFRAME                "ERROR: Unable to create frame window.  Code %08lX."
+  IDS_ERROR_WINREGISTERCLASS           "ERROR: Unable to register window class '%s'.  Code %08lX."
+  IDS_ERROR_CREATECLIENT               "ERROR: Unable to create client window.  Code %08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "DosGetCtryInfo call failed.  Status=%d."
+
+  IDS_NOON                             "Noon"
+  IDS_MIDNIGHT                         "Midnight"
+
+  IDS_EXCEPTION  "Clock has had a serious error.  "
+                 "Please send the file %s to the author at CompuServe 72607,3111 or at Internet rpapo@msen.com.  "
+                 "Please describe what you were trying to do with your system at the time."
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Help Manager Error"
+  IDS_HMERR_EXTHELPUNDEFINED           "Extended help undefined."
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "No frame window in chain."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "Invalid window handle associated."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "Invalid help instance associated."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "Invalid window handle to deassociate."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "No help instance in window chain."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "Invalid help instance handle."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "Invalid application window handle in query."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "Help instance called invalid."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "Help table undefined."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "Help instance undefined."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "Help item not found."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "Invalid help subitem size."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "Help subitem not found."
+  IDS_HMERR_INDEX_NOT_FOUND            "No index in library file."
+  IDS_HMERR_CONTENT_NOT_FOUND          "Table of contents not found."
+  IDS_HMERR_OPEN_LIB_FILE              "Unable to open help library."
+  IDS_HMERR_READ_LIB_FILE              "Unable to read help library."
+  IDS_HMERR_CLOSE_LIB_FILE             "Unable to close help library."
+  IDS_HMERR_INVALID_LIB_FILE           "Help library has invalid format."
+  IDS_HMERR_NO_MEMORY                  "Out of memory."
+  IDS_HMERR_ALLOCATE_SEGMENT           "Unable to allocate segment."
+  IDS_HMERR_FREE_MEMORY                "Unable to release memory."
+  IDS_HMERR_PANEL_NOT_FOUND            "Help panel not found."
+  IDS_HMERR_DATABASE_NOT_OPEN          "Help database not open."
+  IDS_HMERR_UNKNOWN                    "--- Unknown Error ---"
+  IDS_HELPMODE_FRAME                   "Frame"
+  IDS_HELPMODE_MENU                    "Menu"
+  IDS_HELPMODE_WINDOW                  "Window"
+  IDS_HELPMODE_UNKNOWN                 "Unknown"
+  IDS_HELPSUBITEMNOTFOUND              "Help subitem not found: Mode='%s' Topic=%u Subtopic=%u"
+}
+
+RCDATA 1 // CodePage identifier to be used.
+{
+        850
+}
+

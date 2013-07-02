@@ -1,0 +1,12 @@
+@Echo Off
+Verify On
+PKUNZIP -o a:CLOCK32 source.zip
+PKUNZIP -n -o -xsource.zip a:CLOCK32
+PKUNZIP -o SOURCE *.zip
+PKUNZIP -n -o -x*.zip SOURCE
+PKUNZIP -n -o CATALA
+PKUNZIP -n -o DEUTSCH
+PKUNZIP -n -o ENGLISH
+PKUNZIP -n -o ESPANOL
+PKUNZIP -n -o FRANCAIS
+PKUNZIP -n -o ITALIANO

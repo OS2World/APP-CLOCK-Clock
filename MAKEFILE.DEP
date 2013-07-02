@@ -1,0 +1,158 @@
+# IBM Developer's Workframe/2 Make File Creation run at 06:41:12 on 01/26/94
+
+# Make File Creation run in directory:
+#   E:\BUILD\SOURCE\C\CLOCK.RP;
+
+# Assumed INCLUDE environment variable path:
+#   E:\BUILD\INCLUDE\COMMON;
+#   E:\BUILD\INCLUDE\GF;
+#   E:\TOOLKT20\C\OS2H;
+#   E:\TOOLKT20\ASM\OS2INC;
+#   E:\IBMCPP\INCLUDE;
+
+
+INCLUDE002=.
+INCLUDE002=$(INCLUDE002);$(INCLUDE)
+
+INCLUDE001=.
+INCLUDE001=$(INCLUDE001);$(INCLUDE)
+
+INCLUDE000=$(INCLUDE)
+
+
+CLOCK.RES:  CLOCK.RC  \
+#  {$(INCLUDE002)}OS2.H  \
+   {$(INCLUDE002)}CLOCK.H  \
+   CLOCK.ICO  \
+   MAKEFILE
+
+ABOUT.OBJ:  ABOUT.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}support.h  \
+   {$(INCLUDE001)}about.h  \
+   MAKEFILE
+
+CLOCK.OBJ:  CLOCK.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}process.h  \
+#  {$(INCLUDE000)}stdarg.h  \
+#  {$(INCLUDE000)}stddef.h  \
+#  {$(INCLUDE000)}stdio.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+#  {$(INCLUDE000)}string.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}helpwin.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}module.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}process.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}profile.h  \
+   {$(INCLUDE001)}restring.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}support.h  \
+   {$(INCLUDE001)}window.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}about.h  \
+   {$(INCLUDE001)}config.h  \
+   {$(INCLUDE001)}clock.h  \
+   MAKEFILE
+
+CONFIG.OBJ:  CONFIG.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+#  {$(INCLUDE000)}string.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}support.h  \
+   {$(INCLUDE001)}config.h  \
+   MAKEFILE
+
+DEBUG.OBJ:  DEBUG.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}stdarg.h  \
+#  {$(INCLUDE000)}stdio.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+#  {$(INCLUDE000)}string.h  \
+#  {$(INCLUDE000)}time.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}mutex.h  \
+   MAKEFILE
+
+except.OBJ:  except.cpp  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+   {$(INCLUDE001)}clock.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}restring.h  \
+#    {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}except.h  \
+   MAKEFILE
+
+HELPWIN.OBJ:  HELPWIN.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}string.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}helpwin.h  \
+#    {$(INCLUDE000)}os2.h  \
+   MAKEFILE
+
+MODULE.OBJ:  MODULE.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}module.h  \
+#    {$(INCLUDE000)}os2.h  \
+   MAKEFILE
+
+PROCESS.OBJ:  PROCESS.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}except.h  \
+   {$(INCLUDE001)}process.h  \
+#    {$(INCLUDE000)}os2.h  \
+   MAKEFILE
+
+PROFILE.OBJ:  PROFILE.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}string.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}support.h  \
+   {$(INCLUDE001)}profile.h  \
+   MAKEFILE
+
+RESTRING.OBJ:  RESTRING.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}restring.h  \
+#    {$(INCLUDE000)}os2.h  \
+   MAKEFILE
+
+SUPPORT.OBJ:  SUPPORT.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+#  {$(INCLUDE000)}stdarg.h  \
+#  {$(INCLUDE000)}stdio.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+#  {$(INCLUDE000)}string.h  \
+   {$(INCLUDE001)}support.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   MAKEFILE
+
+WINDOW.OBJ:  WINDOW.CPP  \
+#  {$(INCLUDE000)}os2.h  \
+   {$(INCLUDE001)}debug.h  \
+     {$(INCLUDE001)}hrtimer.h  \
+   {$(INCLUDE001)}window.h  \
+#    {$(INCLUDE000)}os2.h  \
+   MAKEFILE

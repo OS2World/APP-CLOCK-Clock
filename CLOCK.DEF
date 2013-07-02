@@ -1,0 +1,5 @@
+NAME        Clock WINDOWAPI
+DESCRIPTION 'Clock - Analog Clock for OS/2 Presentation Manager'
+STUB        'OS2STUB.EXE'
+HEAPSIZE    1024
+STACKSIZE   32768

@@ -1,0 +1,19 @@
+# Build German language elements of CLOCK.
+# This module is intended to be included into a more complete Make file.
+
+Deutsch: $*.dll $*.hlp $*.inf
+
+Deutsch.inf: $*.ipf CLOCK.H CLOCK.BMP
+  ipfcomp /INF /COU=049 /COD=850 /LAN=DEU $*.ipf
+
+Deutsch.hlp: $*.ipf CLOCK.H CLOCK.BMP
+  ipfcomp /COU=049 /COD=850 /LAN=DEU $*.ipf
+
+Deutsch.dll: $*.def $*.res dll.obj
+  link386 /nologo dll, $*.dll /align:16, nul,, $* ;
+  rc $*.res $*.dll
+
+Deutsch.res: $*.rc CLOCK.H CLOCK.BMP CLOCK.ICO
+  rc -r $*
+
+

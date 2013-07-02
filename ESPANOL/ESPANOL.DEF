@@ -1,0 +1,8 @@
+;
+;   ESPANOL.DLL module definition file
+;
+
+LIBRARY  CLOCK
+
+DESCRIPTION 'Spanish-language resources for CLOCK.'
+

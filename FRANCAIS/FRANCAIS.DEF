@@ -1,0 +1,8 @@
+;
+;       FRANCAIS.DLL module definition file
+;
+
+LIBRARY  CLOCK
+
+DESCRIPTION 'Ressources en langue fran‡aise pour CLOCK.'
+

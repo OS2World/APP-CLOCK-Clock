@@ -1,0 +1,8 @@
+;
+;       ENGLISH.DLL module definition file
+;
+
+LIBRARY  CLOCK
+
+DESCRIPTION 'English-language resources for CLOCK.'
+

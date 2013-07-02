@@ -1,0 +1,196 @@
+/**************************************************************** FRANCAIS.RC
+ *                                                                          *
+ *                     Horloge analogique pour OS/2 PM.                     *
+ *                   Fichier de dÇfinition des ressources.                  *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "clock.h"
+
+CODEPAGE 850
+
+BITMAP ID_MAIN clock.bmp
+ICON ID_MAIN clock.ico
+
+/****************************************************************************
+ * Months: janvier, fÇvrier, mars, avril, mai, juin,                        *
+ * juillet, aoñt, septembre, octobre, novembre, dÇcembre.                   *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 32, 32, 200, 108, FS_DLGBORDER
+  {
+    CTEXT "Horloge 2.30"                                 -1,  4, 88, 192,  8
+    CTEXT "28 juillet 1995"                              -1,  4, 80, 192,  8
+    CONTROL "#1",                                        -1,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "Horloge digitale/analogique pour OS/2"        -1,  4, 64, 192,  8
+    CTEXT "Copyright original (C) Charles Petzold, 1988" -1,  4, 56, 192,  8
+    CTEXT "ModifiÇ par Rick Papo, 1989-1995"             -1,  4, 48, 192,  8
+    CTEXT "Internet: rpapo@msen.com"                     -1,  4, 40, 192,  8
+    CTEXT "CompuServe: 72607,3111"                       -1,  4, 32, 192,  8
+    DEFPUSHBUTTON "Ok"                               DID_OK, 80,  8,  40, 16, WS_GROUP
+  }
+}
+
+
+MENU IDM_MENU
+{
+  MENUITEM "Sauvegarder la configuration\tF2",  IDM_SAVE_APPLICATION
+  MENUITEM "RÇinitialiser l'environnement",     IDM_RESET_DEFAULTS
+  MENUITEM "Cacher la barre de titre\tAlt+H",   IDM_HIDE_CONTROLS
+  MENUITEM "Configurer...\tAlt+C",              IDM_CONFIGURE
+  MENUITEM SEPARATOR
+  MENUITEM "A propos...",                       IDM_ABOUT
+  MENUITEM "Aide\tF1",                          0, MIS_HELP
+  MENUITEM "Fermer\tF3",                        IDM_EXIT
+}
+
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "RÇpertoire configuration", IDD_PROFILE_PATH, 50, 100, 300, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    LTEXT "Veuillez saisir le chemin complet (disque inclus) du rÇpertoire",-1, 8, 48, 284, 8
+    LTEXT "dans lequel la configuration (.INI) sera conservÇe.",            -1, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "Ok"        DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Annuler"         DID_CANCEL,          44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Aide"            -1,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Configuration de l'horloge", IDD_CONFIGURE, 8, 8, 260, 140
+    FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    GROUPBOX "Type d'horloge",                         -1,             8, 106, 130, 30
+    AUTORADIOBUTTON "analogique",            IDD_CONFIG_ANALOG,       12, 117, 120, 10
+    AUTORADIOBUTTON "digitale",              IDD_CONFIG_DIGITAL,      12, 107, 120, 10
+
+    AUTOCHECKBOX "24 heures",                IDD_CONFIG_HOUR24,       12,  90, 120, 10
+    AUTOCHECKBOX "Cacher la barre de titre", IDD_CONFIG_HIDECONTROLS, 12,  80, 120, 10
+    AUTOCHECKBOX "Carillon",                 IDD_CONFIG_CHIME,        12,  70, 120, 10
+    AUTOCHECKBOX "Toujours visible",         IDD_CONFIG_FLOAT,        12,  60, 120, 10
+    AUTOCHECKBOX "Animer",                   IDD_CONFIG_ANIMATE,      12,  50, 120, 10
+    AUTOCHECKBOX "Afficher les secondes",    IDD_CONFIG_SECONDS,      12,  40, 120, 10
+
+    GROUPBOX "Type d'alerte",                -1,                     142, 106, 114, 30
+    AUTORADIOBUTTON "nombre de tÉches",      IDD_CONFIG_TASKCOUNT,   146, 117,  92, 10
+    AUTORADIOBUTTON "charge processeur",     IDD_CONFIG_CPULOAD,     146, 107,  92, 10
+
+    GROUPBOX "Paliers d'alerte",             -1,                     142,  22, 110, 82
+    LTEXT "Nombre de tÉches",                -1,                     146,  85, 100, 10
+    LTEXT "rouge",                           -1,                     150,  73,  40, 10
+    CONTROL "",                              IDD_CONFIG_TASKCOUNTRED,190,  73,  40, 10
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "jaune",                           -1,                     150,  61,  40, 10
+    CONTROL "",                              IDD_CONFIG_TASKCOUNTYELLOW,190,61, 40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Charge processeur (%)",           -1,                     146,  49, 100, 10
+    LTEXT "rouge",                           -1,                     150,  37,  40, 10
+    CONTROL "",                              IDD_CONFIG_CPULOADRED,  190,  37,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "jaune",                           -1,                     150,  25,  40, 10
+    CONTROL "",                              IDD_CONFIG_CPULOADYELLOW,190, 25,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+
+    DEFPUSHBUTTON "Ok",                           DID_OK,   8,   8,  32, 12, WS_GROUP | WS_TABSTOP
+    CONTROL "Annuler"                             DID_CANCEL,  42,   8,  64, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Aide"                                     -1, 108,   8,  48, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "Aide sur l'horloge"
+  IDS_TITLE                            "Horloge"
+
+  IDS_SAVE_APPLICATION                 "Sauvegarder la configuration\tF2"
+  IDS_RESET_DEFAULTS                   "RÇinitialiser l'environnement"
+  IDS_HIDE_CONTROLS                    "Cacher la barre de titre\tAlt+H"
+  IDS_CONFIGURE                        "Configurer...\tAlt+C"
+
+  IDS_ABOUT                            "A propos..."
+  IDS_HELP                             "Aide\tF1"
+
+  IDS_PARAMETERLIST                    "Paramätres de lancement acceptÇs :\n"
+                                       "  REINIT     : RÇinitialise la configuration au lancement.\n"
+                                       "  ANALOGIQUE : Horloge analogique (aiguilles).\n"
+                                       "  DIGITALE   : Horloge digitale (chiffres).\n"
+  IDS_PARMS_RESET                      "REINIT"
+  IDS_PARMS_ANALOG                     "ANALOGIQUE"
+  IDS_PARMS_DIGITAL                    "DIGITALE"
+
+  IDS_ERROR_INVALIDPARM                "Erreur : paramätre de lancement incorrect '%s'."
+  IDS_ERROR_PRFOPENPROFILE             "Erreur : impossible d'ouvrir le fichier de configuration."
+  IDS_ERROR_CREATEHELP                 "Erreur : impossible de crÇer l'instance d'aide.  Code %08lX."
+  IDS_ERROR_CREATEFRAME                "Erreur : impossible de crÇer la fenàtre de cadre.  Code %08lX."
+  IDS_ERROR_WINREGISTERCLASS           "Erreur : impossible d'enregistrer la classe de fenàtre '%s'.  Code %08lX."
+  IDS_ERROR_CREATECLIENT               "Erreur : impossible de crÇer la fenàtre cliente.  Code %08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "L'appel Ö DosGetCtryInfo a ÇchouÇ.  Status=%d."
+
+  IDS_NOON                             "midi"
+  IDS_MIDNIGHT                         "minuit"
+
+  IDS_EXCEPTION  "Une erreur grave s'est produite dans l'horloge.  "
+                 "Veuillez envoyer le fichier %s Ö l'auteur sur CompuServe 72607,3111 or at Internet rpapo@msen.com.  "
+                 "Essayez de dÇcrire ce que vous essayiez de faire Ö ce moment."
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Erreur gestionnaire d'aide."
+  IDS_HMERR_EXTHELPUNDEFINED           "Aide Çtendue non dÇfinie."
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "Pas de fenàtre cadre dans la chaåne."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "Handle de fenàtre incorrect associÇ."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "Instance d'aide invalide associÇe."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "PoignÇe de fenàtre Ö dissocier invalide."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "Pas d'instance d'aide dans la chaåne de fenàtres."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "PoignÇe d'instance d'aide invalide."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "PoignÇe de fenàtre d'application invalide dans la requàte."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "Appel d'instance d'aide invalide."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "Table d'aide non-dÇfinie."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "Instance d'aide non-dÇfinie."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "êlÇment d'aide non trouvÇ."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "Taille de sous-ÇlÇment d'aide incorrecte."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "Sous-ÇlÇment d'aide non trouvÇ."
+  IDS_HMERR_INDEX_NOT_FOUND            "Pas d'index dans le fichier bibliothäque."
+  IDS_HMERR_CONTENT_NOT_FOUND          "Table des matiäres non trouvÇe."
+  IDS_HMERR_OPEN_LIB_FILE              "Impossible d'ouvrir la bibliothäque d'aide."
+  IDS_HMERR_READ_LIB_FILE              "Impossible de lire la bibliothäque d'aide."
+  IDS_HMERR_CLOSE_LIB_FILE             "Impossible de fermer la bibliothäque d'aide."
+  IDS_HMERR_INVALID_LIB_FILE           "Le format de la bibliothäque d'aide est incorrect."
+  IDS_HMERR_NO_MEMORY                  "Manque de mÇmoire."
+  IDS_HMERR_ALLOCATE_SEGMENT           "Impossible d'allouer un segment."
+  IDS_HMERR_FREE_MEMORY                "Impossible de libÇrer la mÇmoire."
+  IDS_HMERR_PANEL_NOT_FOUND            "Panneau d'aide non trouvÇ."
+  IDS_HMERR_DATABASE_NOT_OPEN          "Base de donnÇes d'aide non ouverte."
+  IDS_HMERR_UNKNOWN                    "--- erreur inconnue ---"
+  IDS_HELPMODE_FRAME                   "cadre"
+  IDS_HELPMODE_MENU                    "menu"
+  IDS_HELPMODE_WINDOW                  "fenàtre"
+  IDS_HELPMODE_UNKNOWN                 "inconnu"
+  IDS_HELPSUBITEMNOTFOUND              "Sous-ÇlÇment d'aide non trouvÇ : Mode ='%s' êlÇment =%u Sous-ÇlÇment =%u"
+}
+
+RCDATA 1 // CodePage identifier to be used.
+{
+        850
+}
+

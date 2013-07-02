@@ -1,0 +1,195 @@
+/****************************************************************** CATALA.RC
+ *                                                                          *
+ *          Rellotge anal•gic per a l'OS/2. Fitxer definici¢ recursos       *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "clock.h"
+
+CODEPAGE 850
+
+BITMAP ID_MAIN clock.bmp
+ICON ID_MAIN clock.ico
+
+/****************************************************************************
+ * Months: Gener, Febrer, Mar‡, Abril, Maig, Juni,                          *
+ * Juliol, Agost, Setembre, Octubre, Novembre, Desembre.                    *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 32, 32, 200, 108, FS_DLGBORDER
+  {
+    CTEXT "Rellotge 2.30"                                -1,  4, 88, 192,  8
+    CTEXT "28 Juliol 1995"                               -1,  4, 80, 192,  8
+    CONTROL "#1",                                        -1,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "Rellotge anal•gic/digital per a l'OS/2"       -1,  4, 64, 192,  8
+    CTEXT "Copyright original (C) Charles Petzold, 1988" -1,  4, 56, 192,  8
+    CTEXT "Modificat per Rick Papo, 1989-1995"           -1,  4, 48, 192,  8
+    CTEXT "Internet: rpapo@msen.com"                     -1,  4, 40, 192,  8
+    CTEXT "CompuServe: 72607,3111"                       -1,  4, 32, 192,  8
+    DEFPUSHBUTTON "OK"                               DID_OK, 80,  8,  40, 16, WS_GROUP
+  }
+}
+
+
+MENU IDM_MENU
+{
+  MENUITEM "Gravar configuraci¢\tF2",           IDM_SAVE_APPLICATION
+  MENUITEM "Restaurar els valors per defecte",  IDM_RESET_DEFAULTS
+  MENUITEM "Amagar els controls\tAlt+H",        IDM_HIDE_CONTROLS
+  MENUITEM "Configurar...\tAlt+C",              IDM_CONFIGURE
+  MENUITEM SEPARATOR
+  MENUITEM "Informaci¢ del programa...",        IDM_ABOUT
+  MENUITEM "Ajuda\tF1",                         0, MIS_HELP
+  MENUITEM "Close\tF3",                         IDM_EXIT
+}
+
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "Indicar el directori del fitxer .INI...", IDD_PROFILE_PATH, 50, 100, 300, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    LTEXT "Escriure el directori complet (incloent-hi la unitat de disc)",-1, 8, 48, 284, 8
+    LTEXT "del directori on s'ha de guardar el fixter .INI",              -1, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "OK"        DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Esc=Cancelúlar"      DID_CANCEL,      44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=Ajuda"        -1,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Configuraci¢ del rellotge", IDD_CONFIGURE, 8, 8, 240, 140
+    FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    GROUPBOX "Tipus de rellotge",                            -1,   8, 106, 110, 30
+    AUTORADIOBUTTON "Anal•gic",               IDD_CONFIG_ANALOG,  12, 117, 100, 10
+    AUTORADIOBUTTON "Digital",               IDD_CONFIG_DIGITAL,  12, 107, 100, 10
+
+    AUTOCHECKBOX "24 hores",                  IDD_CONFIG_HOUR24,  12,  90, 100, 10
+    AUTOCHECKBOX "Amagar els controls", IDD_CONFIG_HIDECONTROLS,  12,  80, 100, 10
+    AUTOCHECKBOX "Campana",                    IDD_CONFIG_CHIME,  12,  70, 100, 10
+    AUTOCHECKBOX "Restar en primer pla",       IDD_CONFIG_FLOAT,  12,  60, 100, 10
+    AUTOCHECKBOX "Animaci¢",                 IDD_CONFIG_ANIMATE,  12,  50, 100, 10
+    AUTOCHECKBOX "Display Seconds",          IDD_CONFIG_SECONDS,  12,  40, 100, 10
+
+    GROUPBOX "Tipus d'av¡s",                                 -1, 122, 106, 110, 30
+    AUTORADIOBUTTON "N£mero de tasques",   IDD_CONFIG_TASKCOUNT, 126, 117, 100, 10
+    AUTORADIOBUTTON "Percentatge de CPU",    IDD_CONFIG_CPULOAD, 126, 107, 100, 10
+
+    GROUPBOX "Nivells d'av¡s",                               -1, 122,  22, 110, 82
+    LTEXT "N£mero de tasques",                               -1, 126,  85, 100, 10
+    LTEXT "Vermell",                                         -1, 130,  73,  40, 10
+    CONTROL "",                         IDD_CONFIG_TASKCOUNTRED, 170,  73,  40, 10
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Groc",                                            -1, 130,  61,  40, 10
+    CONTROL "",                      IDD_CONFIG_TASKCOUNTYELLOW, 170,  61,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Percentatge de CPU (%)",                          -1, 126,  49, 100, 10
+    LTEXT "Vermell",                                         -1, 130,  37,  40, 10
+    CONTROL "",                           IDD_CONFIG_CPULOADRED, 170,  37,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Groc",                                            -1, 130,  25,  40, 10
+    CONTROL "",                        IDD_CONFIG_CPULOADYELLOW, 170,  25,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+
+    DEFPUSHBUTTON "OK",                                  DID_OK,   8,   8,  32, 12, WS_GROUP | WS_TABSTOP
+    CONTROL "Cancelúlar"                             DID_CANCEL,  42,   8,  64, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Ajuda"                                          -1, 108,   8,  48, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "Ajuda per a Rellotge"
+  IDS_TITLE                            "Rellotge"
+
+  IDS_SAVE_APPLICATION                 "Gravar configuraci¢\tF2"
+  IDS_RESET_DEFAULTS                   "Restaurar els valors per defecte"
+  IDS_HIDE_CONTROLS                    "Amagar els controls\tAlt+H"
+  IDS_CONFIGURE                        "Configurar...\tAlt+C"
+
+  IDS_ABOUT                            "Informaci¢ del programa..."
+  IDS_HELP                             "Ajuda\tF1"
+
+  IDS_PARAMETERLIST                    "Par…metres v…lids:\n"
+                                       "  RESET: Restaurar valors abans d\'iniciar.\n"
+                                       "  ANALOG: Comen‡ar en mode anal•gic.\n"
+                                       "  DIGITAL: Comen‡ar en mode digital.\n"
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_ANALOG                     "ANALOG"
+  IDS_PARMS_DIGITAL                    "DIGITAL"
+
+  IDS_ERROR_INVALIDPARM                "ERROR: Par…metre inicial no v…lid '%s'."
+  IDS_ERROR_PRFOPENPROFILE             "ERROR: No es pot obrir el fitxer .INI."
+  IDS_ERROR_CREATEHELP                 "ERROR: No es pot crear la inst…ncia de l'ajuda.  Status=%08lX."
+  IDS_ERROR_CREATEFRAME                "ERROR: No es pot crear el marc de la finestra.  Status=%08lX."
+  IDS_ERROR_WINREGISTERCLASS           "ERROR: No es pot registrar la classe de la finestra '%s'.  Status=%08lX."
+  IDS_ERROR_CREATECLIENT               "ERROR: No es pot crear la finestra client.  Status=%08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "DosGetCtryInfo retorna error.  Status=%d."
+
+  IDS_NOON                             "Migdia"
+  IDS_MIDNIGHT                         "Mitjanit"
+
+  IDS_EXCEPTION  "Clock has had a serious error.  "
+                 "Please send the file %s to the author at CompuServe 72607,3111 or at Internet rpapo@msen.com.  "
+                 "Please describe what you were trying to do with your system at the time."
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Error Gestor Ajuda"
+  IDS_HMERR_EXTHELPUNDEFINED           "Ajuda extesa no trobada"
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "No es troba una finestra del tipus 'marc'."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "Handle de finestra associada no v…lid."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "Handle d\'inst…ncia de l\'ajuda associada no v…lid."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "Handle de dissossiacci¢ no v…lid."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "No s\'ha trobat inst…ncia d\'ajuda a la cadena de finestres."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "Handle d'inst…ncia d'ajuda no v…lid."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "Handle de la finestra de l'aplicaci¢ no v…lid."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "La inst…ncia de l'ajuda declarada no ‚s v…lida."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "Taula de l'ajuda no definida."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "Inst…ncia de l'ajuda no definida."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "T•pic de l'ajuda no trobat."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "Tamany del subt•pic de l'ajuda no v…lid."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "Subt•pic de l'ajuda no trobat."
+  IDS_HMERR_INDEX_NOT_FOUND            "El fitxer de l'ajuda no cont‚ l'¡ndex."
+  IDS_HMERR_CONTENT_NOT_FOUND          "El fitxer de l'ajuda no cont‚ la taula de continguts."
+  IDS_HMERR_OPEN_LIB_FILE              "No s'ha pogut obrir el fitxer de l'ajuda."
+  IDS_HMERR_READ_LIB_FILE              "No es pot llegir el fitxer de l'ajuda."
+  IDS_HMERR_CLOSE_LIB_FILE             "No es pot tancar el fitxer de l'ajuda."
+  IDS_HMERR_INVALID_LIB_FILE           "Help library has invalid format."
+  IDS_HMERR_NO_MEMORY                  "No hi ha prou mem•ria!"
+  IDS_HMERR_ALLOCATE_SEGMENT           "No es pot assignar mem•ria."
+  IDS_HMERR_FREE_MEMORY                "No se pot alliberar la mem•ria."
+  IDS_HMERR_PANEL_NOT_FOUND                "No es troba el plaf¢ de l'ajuda."
+  IDS_HMERR_DATABASE_NOT_OPEN          "El fitxer de l'ajuda no est… obert."
+  IDS_HMERR_UNKNOWN                    "--- Error Desconegut ---"
+  IDS_HELPMODE_FRAME                   "Marc"
+  IDS_HELPMODE_MENU                    "Men£"
+  IDS_HELPMODE_WINDOW                  "Finestra"
+  IDS_HELPMODE_UNKNOWN                 "Desconegut"
+  IDS_HELPSUBITEMNOTFOUND              "Subt•pic d'ajuda no trobat: Mode='%s' T•pic=%u Subt•pic=%u"
+}
+
+RCDATA 1 // CodePage identifier to be used.
+{
+        850
+}
+

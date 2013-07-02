@@ -1,0 +1,62 @@
+# IBM Developer's Workframe/2 Make File Creation run at 06:41:12 on 01/26/94
+
+# Make File Creation run in directory:
+#   E:\BUILD\SOURCE\C\CLOCK.RP;
+
+.SUFFIXES:
+.SUFFIXES: .cpp .rc
+
+ALL: CLOCK.EXE \
+     CLOCK.RES \
+     Catala Deutsch English Espanol Francais Italiano
+
+CLOCK.EXE:  \
+  ABOUT.OBJ \
+  CLOCK.OBJ \
+  CLOCK.RES \
+  CONFIG.OBJ \
+  DEBUG.OBJ \
+  except.OBJ \
+  HELPWIN.OBJ \
+  MODULE.OBJ \
+  PROCESS.OBJ \
+  PROFILE.OBJ \
+  RESTRING.OBJ \
+  SUPPORT.OBJ \
+  WINDOW.OBJ \
+  MAKEFILE
+   ICC.EXE @<<
+ /B" /pmtype:pm /nologo /m:full" /Q
+ /Fe"CLOCK.EXE" /Fm"CLOCK.MAP" CLOCK.DEF
+ABOUT.OBJ
+CLOCK.OBJ
+CONFIG.OBJ
+DEBUG.OBJ
+except.OBJ
+HELPWIN.OBJ
+MODULE.OBJ
+PROCESS.OBJ
+PROFILE.OBJ
+RESTRING.OBJ
+SUPPORT.OBJ
+WINDOW.OBJ
+<<
+   RC CLOCK.RES CLOCK.EXE
+
+{.}.rc.res:
+   RC -r .\$*.RC
+
+{.}.cpp.obj:
+   ICC.EXE /Sp1 /J- /Q /O /Gm /C   .\$*.cpp
+
+!include MAKEFILE.DEP
+
+!include DLL
+
+!include CATALA
+!include DEUTSCH
+!include ENGLISH
+!include ESPANOL
+!include FRANCAIS
+!include ITALIANO
+

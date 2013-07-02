@@ -1,0 +1,194 @@
+/**************************************************************** ITALIANO.RC
+ *                                                                          *
+ *             OS/2 PM Clock Analogico resource definition file             *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "clock.h"
+
+CODEPAGE 850
+
+BITMAP ID_MAIN clock.bmp
+ICON ID_MAIN clock.ico
+
+/****************************************************************************
+ * Months: gennaio, febbraio, marzo, aprile, maggio, giugno,                *
+ *   luglio, agosto, settembre, ottobre, novembre, dicembre                 *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 32, 32, 200, 108, FS_DLGBORDER
+  {
+    CTEXT "Clock 2.30"                                   -1,  4, 88, 192,  8
+    CTEXT "28 Luglio 1995"                               -1,  4, 80, 192,  8
+    CONTROL "#1",                                        -1,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "Orologio PM digitale/analogico per OS/2"      -1,  4, 64, 192,  8
+    CTEXT "Copyright originale (C) Charles Petzold, 1988" -1, 4, 56, 192,  8
+    CTEXT "Modificato da Rick Papo, 1989-1995"           -1,  4, 48, 192,  8
+    CTEXT "Internet: rpapo@msen.com"                     -1,  4, 40, 192,  8
+    CTEXT "CompuServe: 72607,3111"                       -1,  4, 32, 192,  8
+    DEFPUSHBUTTON "OK"                               DID_OK, 80,  8,  40, 16, WS_GROUP
+  }
+}
+
+
+MENU IDM_MENU
+{
+  MENUITEM "Salva configurazione\tF2",         IDM_SAVE_APPLICATION
+  MENUITEM "Reinizializza configurazione",     IDM_RESET_DEFAULTS
+  MENUITEM "Nascondi controlli\tAlt+H",        IDM_HIDE_CONTROLS
+  MENUITEM "Configura...\tAlt+C",              IDM_CONFIGURE
+  MENUITEM SEPARATOR
+  MENUITEM "Informazioni sul prodotto...",     IDM_ABOUT
+  MENUITEM "Help\tF1",                         0, MIS_HELP
+  MENUITEM "Chiudi\tF3",                       IDM_EXIT
+}
+
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "Seleziona percorso di configurazione...", IDD_PROFILE_PATH, 50, 100, 300, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    LTEXT "Scrivi il prescorso completo (con drive) della directory",-1, 8, 48, 284, 8
+    LTEXT "dove verra' salvata la configurazione (INI).",            -1, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "OK"        DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Esc=Cancel"      DID_CANCEL,          44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=Help"         -1,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Configurazione dell'orologio", IDD_CONFIGURE, 8, 8, 212, 140
+    FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR
+  {
+    GROUPBOX "Tipo di orologio",                        -1,    8, 106, 106, 30
+    AUTORADIOBUTTON "Analogico",         IDD_CONFIG_ANALOG,   12, 117,  94, 10
+    AUTORADIOBUTTON "Digitale",          IDD_CONFIG_DIGITAL,  12, 107,  94, 10
+
+    AUTOCHECKBOX "24 ore",               IDD_CONFIG_HOUR24,   12,  90,  94, 10
+    AUTOCHECKBOX "Nascondi i controlli", IDD_CONFIG_HIDECONTROLS,12,80, 94, 10
+    AUTOCHECKBOX "Suono orario",         IDD_CONFIG_CHIME,    12,  70,  94, 10
+    AUTOCHECKBOX "Sempre visibile",      IDD_CONFIG_FLOAT,    12,  60,  94, 10
+    AUTOCHECKBOX "Animazione",           IDD_CONFIG_ANIMATE,  12,  50,  94, 10
+    AUTOCHECKBOX "Mostra i secondi",     IDD_CONFIG_SECONDS,  12,  40,  94, 10
+
+    GROUPBOX "Typo di allarme",                          -1, 116, 106,  86, 30
+    AUTORADIOBUTTON "Conto dei task",  IDD_CONFIG_TASKCOUNT, 120, 117,  74, 10
+    AUTORADIOBUTTON "Carico CPU",        IDD_CONFIG_CPULOAD, 120, 107,  74, 10
+
+    GROUPBOX "Scelta allarmi",                           -1, 116,  22,  86, 82
+    LTEXT "Numero di task",                              -1, 120,  85,  70, 10
+    LTEXT "Rosso",                                       -1, 124,  73,  30, 10
+    CONTROL "",                     IDD_CONFIG_TASKCOUNTRED, 156,  73,  40, 10
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Giallo",                                      -1, 124,  61,  30, 10
+    CONTROL "",                  IDD_CONFIG_TASKCOUNTYELLOW, 156,  61,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Carico CPU (%)",                              -1, 120,  49,  70, 10
+    LTEXT "Rosso",                                       -1, 124,  37,  30, 10
+    CONTROL "",                       IDD_CONFIG_CPULOADRED, 156,  37,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+    LTEXT "Giallo",                                      -1, 124,  25,  30, 10
+    CONTROL "",                    IDD_CONFIG_CPULOADYELLOW, 156,  25,  40, 10,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN | SPBS_READONLY
+
+    DEFPUSHBUTTON "OK",                            DID_OK,   8,   8,  32, 12, WS_GROUP | WS_TABSTOP
+    CONTROL "Cancel"                           DID_CANCEL,  42,   8,  64, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Help"                                     -1, 108,   8,  48, 12, WC_BUTTON,
+      WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "Servizio di Help per 'Clock'"
+  IDS_TITLE                            "Clock"
+
+  IDS_SAVE_APPLICATION                 "Salva configurazione\tF2"
+  IDS_RESET_DEFAULTS                   "Reinizializza configurazione"
+  IDS_HIDE_CONTROLS                    "Nascondi controlli\tAlt+H"
+  IDS_CONFIGURE                        "Configura...\tAlt+C"
+  IDS_ABOUT                            "Informazioni sul prodotto..."
+  IDS_HELP                             "Help\tF1"
+
+  IDS_PARAMETERLIST                    "Parametri di startup validi startup:\n"
+                                       "  RESET: reinizializza il profilo prima di partire.\n"
+                                       "  ANALOG: apre l'orologio analogico.\n"
+                                       "  DIGITAL: apre l'orologio digitale.\n"
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_ANALOG                     "ANALOG"
+  IDS_PARMS_DIGITAL                    "DIGITAL"
+
+  IDS_ERROR_INVALIDPARM                "ERROR: parametro di startup invalido '%s'."
+  IDS_ERROR_PRFOPENPROFILE             "ERROR: non riesco ad aprire il file di configurazione."
+  IDS_ERROR_CREATEHELP                 "ERROR: non riesco ad aprire l'instance di help.  Code %08lX."
+  IDS_ERROR_CREATEFRAME                "ERROR: non riesco a creare una frame window.  Code %08lX."
+  IDS_ERROR_WINREGISTERCLASS           "ERROR: non riesco a registrare la window class '%s'.  Code %08lX."
+  IDS_ERROR_CREATECLIENT               "ERROR: non riesco a creare una client window.  Code %08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "call a DosGetCtryInfo fallita.  Status=%d."
+
+  IDS_NOON                             "Mezzogiorno"
+  IDS_MIDNIGHT                         "Mezzanotte"
+
+  IDS_EXCEPTION  "Clock ha avuto un errore grave.  "
+                 "Per favore manda il file %s all'autore a CompuServe 72607,3111 or at Internet rpapo@msen.com.  "
+                 "Perfavore descrivi cosa stavi tentando di fare col systema in quel momento."
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Errore dell'Help Manager"
+  IDS_HMERR_EXTHELPUNDEFINED           "Help esteso non definito."
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "Nessuna frame window in chain."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "Invalido window handle associato."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "Invalida help instance associata."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "Invalido window handle da deassociare."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "Nessuna help instance nella window chain."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "Invalido handle nell'help instance."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "Invalida application window handle in chiamata."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "Chiamata invalida alla Help instance."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "Tavola Help indefinita."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "Help instance undefinita."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "Voce Help non trovata."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "Dimensione invalida dell'help subitem."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "Help subitem non trovato."
+  IDS_HMERR_INDEX_NOT_FOUND            "Nessun indica nel file di libreria."
+  IDS_HMERR_CONTENT_NOT_FOUND          "Tavola dei contenuti non trovata."
+  IDS_HMERR_OPEN_LIB_FILE              "Non riesco ad aprire la libreria di help."
+  IDS_HMERR_READ_LIB_FILE              "Non riesco a leggere la libreria di help."
+  IDS_HMERR_CLOSE_LIB_FILE             "Non riesco a chiudere la libreria di help."
+  IDS_HMERR_INVALID_LIB_FILE           "La libreria di Help ha un formato invalido."
+  IDS_HMERR_NO_MEMORY                  "Fuori limite di memoria."
+  IDS_HMERR_ALLOCATE_SEGMENT           "Non riesco ad allocare segmenti."
+  IDS_HMERR_FREE_MEMORY                "Non riesco a liberare memoria."
+  IDS_HMERR_PANEL_NOT_FOUND            "Non trovato pannello di Help."
+  IDS_HMERR_DATABASE_NOT_OPEN          "Help database non aperto."
+  IDS_HMERR_UNKNOWN                    "--- Errore non documentato ---"
+  IDS_HELPMODE_FRAME                   "Frame"
+  IDS_HELPMODE_MENU                    "Menu"
+  IDS_HELPMODE_WINDOW                  "Window"
+  IDS_HELPMODE_UNKNOWN                 "Unknown"
+  IDS_HELPSUBITEMNOTFOUND              "Non trovato subitem in Help: Modo='%s' Elemento=%u Sottoelemento=%u"
+}
+
+RCDATA 1 // CodePage identifier to be used.
+{
+        850
+}
+
